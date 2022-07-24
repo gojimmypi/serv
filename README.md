@@ -14,6 +14,8 @@ If you want to know more about SERV, what a bit-serial CPU is and what it's good
 * [SERV : RISC-V for a fistful of gates](https://www.award-winning.me/serv-for-a-fistful-of-gates/)
 * [Bit by bit - How to fit 8 RISC V cores in a $38 FPGA board (presentation from the Zürich 2019 RISC-V workshop)](https://www.youtube.com/watch?v=xjIxORBRaeQ)
 
+## Start Here
+
 There's also an official [SERV user manual](https://serv.readthedocs.io/en/latest/#) with fancy block diagrams, timing diagrams and an in-depth description of how some things work.
 
 ## Prerequisites
@@ -23,7 +25,13 @@ will refer to this directory as `$WORKSPACE` from now on. All commands will be r
 
 Install FuseSoC
 
+`pip3 install fusesoc`
+
+or on older systems with Python prior to version 3:
+
 `pip install fusesoc`
+
+See the [SERV user manual](https://serv.readthedocs.io/en/latest/#) if any problems are encountered.
 
 Create a workspace project directory to hold your `fusesoc.conf` and other project files as descibed in the [fusesoc  Getting Started](https://github.com/olofk/fusesoc#getting-started):
 
@@ -44,7 +52,11 @@ The SERV repo will now be available in $WORKSPACE/fusesoc_libraries/serv. To sav
 
 We are now ready to do our first exercises with SERV
 
-If [Verilator](https://www.veripool.org/wiki/verilator) is installed, we can use that as a linter to check the SERV source code
+If [Verilator](https://www.veripool.org/wiki/verilator) is installed, we can use that as a linter to check the SERV source code.
+
+Note that until Verilator is available for Windows, most of the following steps will work best on Linux platforms.
+Windows users can skip ahead to [Run on Hardware](#run-on-hardware)
+
 
 `fusesoc run --target=lint serv`
 
@@ -99,9 +111,9 @@ Download the tests repo
 
     git clone https://github.com/riscv-non-isa/riscv-arch-test.git
 
-To run the RISC-V compliance tests, we need to supply the SERV-specific support files and point the test suite to where it can find a target to run (i.e. the previously built Verilator model)
+To run the RISC-V compliance tests, we need to supply the SERV-specific support files and point the test suite to where it can find a target to run. (i.e. the previously built Verilator model)
 
-Run the compliance tests
+Run the compliance tests:
 
     cd riscv-arch-test && make TARGETDIR=$SERV/riscv-target RISCV_TARGET=serv RISCV_DEVICE=I TARGET_SIM=$WORKSPACE/build/servant_1.1.0/verilator_tb-verilator/Vservant_sim
 
